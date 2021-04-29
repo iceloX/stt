@@ -19,9 +19,6 @@ class SttApplicationTests {
 
     @Test
     void contextLoads() {
-        // 查询所有的社团
-         communityService.list().forEach(System.out::println);
-
 
     }
 
