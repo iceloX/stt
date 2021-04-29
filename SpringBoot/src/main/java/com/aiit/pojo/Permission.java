@@ -1,7 +1,11 @@
 package com.aiit.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -9,6 +13,9 @@ import java.util.Date;
  * @Date 2021/4/28
  * @Descriptions
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Permission {
 
     @TableId(type = IdType.ASSIGN_ID)
@@ -16,9 +23,9 @@ public class Permission {
     private String name;  // 名字
 
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime; // 创建时间
+    private LocalDateTime createTime; // 创建时间
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;  // 更新时间
+    private LocalDateTime updateTime;  // 更新时间
     @Version
     private Integer version; // 乐观锁
 }

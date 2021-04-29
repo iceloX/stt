@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author icelo
@@ -29,10 +32,13 @@ public class Activity {
     private Float score; // 分数
     private Integer status; // 状态
 
+    @TableField(exist = false)
+    private List<User> users; // 参加活动人员
+
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime; // 创建时间
+    private LocalDateTime createTime; // 创建时间
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime; // 修改时间
+    private LocalDateTime updateTime; // 修改时间
 
     @Version
     private Integer version; // 乐观锁

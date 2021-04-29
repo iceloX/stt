@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -22,9 +23,9 @@ public class Role {
     @TableField("name")
     private String name;
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime; // 创建时间
+    private LocalDateTime createTime; // 创建时间
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime; // 修改时间
+    private LocalDateTime updateTime; // 修改时间
 
     @Version
     private Integer version; // 乐观锁
