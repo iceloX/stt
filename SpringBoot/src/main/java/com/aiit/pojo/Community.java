@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class Community {
     private String head; // 负责人的名字
     private Integer status; // 状态
     private Float score; // 分数
-    @TableField(fill = FieldFill.INSERT)
-    private Date createTime; // 创建时间
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime; // 更新时间
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private LocalDateTime createTime; // 创建时间
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime; // 更新时间
     @Version
     private Integer version;
 
