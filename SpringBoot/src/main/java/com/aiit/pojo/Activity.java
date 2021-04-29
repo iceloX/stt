@@ -21,7 +21,7 @@ public class Activity {
     @TableId(type = IdType.ASSIGN_ID) // 雪花算法
     private Long id;// 编号
     private String name; // 名称
-    private String describe;// 描述
+    private String description;// 描述
     private Date begin; // 开始时间
     private Date end; // 结束时间
     private String cover; // 封面

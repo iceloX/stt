@@ -21,7 +21,7 @@ public class Community {
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
     private String name; // 名称
-    private String describe; // 描述
+    private String description; // 描述
     private String logo; // logo图片
     private String head; // 负责人的名字
     private Integer status; // 状态

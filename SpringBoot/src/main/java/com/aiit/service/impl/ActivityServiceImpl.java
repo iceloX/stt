@@ -4,11 +4,13 @@ import com.aiit.dao.IActivityMapper;
 import com.aiit.pojo.Activity;
 import com.aiit.service.IActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author icelo
  * @Date 2021/4/29
  * @Descriptions
  */
+@Service
 public class ActivityServiceImpl extends ServiceImpl<IActivityMapper, Activity> implements IActivityService {
 }

@@ -23,7 +23,7 @@ public class Article {
     private String name; // 名字
     private String content; // 内容
     private String cover; // 封面
-    private String describe; // 描述
+    private String description; // 描述
     private String author;// 作者
     private Integer status; // 文章状态
     private String category;// 文章的分类
