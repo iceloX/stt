@@ -30,7 +30,7 @@ public class Activity {
     private String cover; // 封面
     private String place;// 地点
     private Float score; // 分数
-    private Integer status; // 状态
+    private Integer status; // 状态 活动的状态：-1 未开始，0 进行中，1 已结束
 
     @TableField(exist = false)
     private List<User> users; // 参加活动人员
