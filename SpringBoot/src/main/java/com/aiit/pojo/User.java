@@ -1,6 +1,8 @@
 package com.aiit.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.Date;
 public class User {
 
     @TableId(type = IdType.ASSIGN_ID) // 雪花算法
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id; // 编号
     private String nickname; // 昵称
     private String snumber; // 学号
