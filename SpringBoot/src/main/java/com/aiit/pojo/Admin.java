@@ -21,7 +21,7 @@ import java.util.Date;
 public class Admin {
 
     private Long id; // 编号
-    private String  username; // 用户名
+    private String username; // 用户名
     private String phone; // 手机号
     private String email; // 邮箱
     private String password;// 密码

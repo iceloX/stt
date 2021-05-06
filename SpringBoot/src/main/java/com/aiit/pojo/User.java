@@ -23,7 +23,7 @@ public class User {
     private Long id; // 编号
     private String nickname; // 昵称
     private String snumber; // 学号
-    @TableField("open_ud")
+    @TableField("open_id")
     private String openId; // open_id
     private String phone; // 手机号
     private String cls; // 班级
