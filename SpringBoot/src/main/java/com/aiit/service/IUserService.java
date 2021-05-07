@@ -2,6 +2,7 @@ package com.aiit.service;
 
 import com.aiit.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,5 +12,10 @@ import org.springframework.web.client.RestTemplate;
  * @Descriptions
  */
 public interface IUserService extends IService<User> {
+
+
+
     ResponseEntity getOpenId(String code);
+
+    User getUserByActId(@Param("actId") Long actId,@Param("userId") Long userId);
 }

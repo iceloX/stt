@@ -4,6 +4,7 @@ import com.aiit.dao.IActivityMapper;
 import com.aiit.pojo.Activity;
 import com.aiit.service.IActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,4 +14,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ActivityServiceImpl extends ServiceImpl<IActivityMapper, Activity> implements IActivityService {
+
+    IActivityMapper activityMapper;
+
+    @Autowired
+    public void setActivityMapper(IActivityMapper activityMapper) {
+        this.activityMapper = activityMapper;
+    }
+
+    @Override
+    public Activity getActBySignId(Long signId) {
+        return activityMapper.getActBySignId(signId);
+    }
 }

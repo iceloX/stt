@@ -25,6 +25,12 @@ public class UserServiceImpl extends ServiceImpl<IUserMapper, User> implements I
 
     RestTemplate restTemplate;
 
+    IUserMapper userMapper;
+
+    @Autowired
+    public void setUserMapper(IUserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     @Autowired
     public void setRestTemplate(RestTemplate restTemplate) {
@@ -33,7 +39,12 @@ public class UserServiceImpl extends ServiceImpl<IUserMapper, User> implements I
 
     @Override
     public ResponseEntity getOpenId(String code) {
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid="+appid+"&secret="+secret+"&js_code="+code+"&grant_type=authorization_code";
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + code + "&grant_type=authorization_code";
         return restTemplate.getForEntity(url, String.class);
+    }
+
+    @Override
+    public User getUserByActId(Long actId,Long userId) {
+        return userMapper.getUserByActId(actId,userId);
     }
 }
