@@ -15,7 +15,10 @@ import com.aiit.utils.returns.JsonResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.BASE64Encoder;
 
+import javax.imageio.ImageIO;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -84,8 +87,9 @@ public class SignController {
                     String cron = CronDateUtils.getCron(DateUtil.loca2Date(sign.getBegin()));
                     dynamicTaskConfig.startCron(taskName, () -> {
                         try {
-                            // 生成一个二维码
-                            QRCodeUtil.encode(Long.toString(sign.getId()), new FileOutputStream("D:\\test.jpg"));
+                            String code = QRCodeUtil.getQRCodeBase64(String.valueOf(sign.getId()));
+                            System.out.println(code);
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
