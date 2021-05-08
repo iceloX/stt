@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -27,5 +29,15 @@ public class SignServiceImpl extends ServiceImpl<ISignMapper, Sign> implements I
     @Override
     public List<Sign> getAllSignByUserId(Long uid) {
         return signMapper.getAllSignByUserId(uid);
+    }
+
+    @Override
+    public int isSigned(Long uid, Long signId) {
+        return signMapper.isSigned(uid, signId);
+    }
+
+    @Override
+    public int doSign(Long uid, Long signId, LocalDateTime signTime, BigDecimal signJ, BigDecimal signW, Integer status, LocalDateTime createTime, LocalDateTime updateTime, Integer version) {
+        return signMapper.doSign(uid, signId, signTime, signJ, signW, status, createTime, updateTime, version);
     }
 }

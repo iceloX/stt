@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aiit.dao.ISignMapper">
+    <insert id="doSign">
+        INSERT INTO user_sign (user_id, sign_id, sign_time, sign_j, sign_w, `status`, create_time, update_time, version)
+        VALUES (#{uid}, #{signId}, #{signTime}, #{signJ}, #{signW}, #{status}, #{createTime}, #{updateTime},
+                #{version});
+    </insert>
     <select id="getAllSignByUserId" resultType="com.aiit.pojo.Sign">
         SELECT sign.*
         FROM act_sign
                  RIGHT JOIN user_act ON act_sign.act_id = user_act.act_id
                  RIGHT JOIN sign ON sign.id = act_sign.sign_id
         WHERE user_act.user_id = #{uid}
+    </select>
+    <select id="isSigned" resultType="java.lang.Integer">
+        select count(*)
+        from user_sign
+        WHERE user_id = #{uid}
+          AND sign_id = #{signId}
     </select>
 </mapper>

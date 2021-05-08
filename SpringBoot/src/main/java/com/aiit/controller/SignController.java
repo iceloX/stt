@@ -1,9 +1,7 @@
 package com.aiit.controller;
 
 import com.aiit.config.quartz.DynamicTaskConfig;
-import com.aiit.pojo.Activity;
 import com.aiit.pojo.Sign;
-import com.aiit.pojo.User;
 import com.aiit.service.IActivityService;
 import com.aiit.service.ICommunityService;
 import com.aiit.service.ISignService;
@@ -21,8 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -129,18 +126,67 @@ public class SignController {
         if (distance > scope) {
             return JsonResult.error("您当前位置不在既定位置之内，签到失败！");
         }
+        if (sign.getBegin().isBefore(LocalDateTime.now()) && sign.getEnd().isAfter(LocalDateTime.now())) {
 
-        /*
-         * 后面代码逻辑暂未实现
-         * */
-        return JsonResult.success();
+            int count = signService.isSigned(userId, id);
+            if (count == 1) {
+                return JsonResult.error("您当前已经签到过了");
+            } else {
+                // 插入用户签到的记录
+                int result = signService.doSign(userId, id, LocalDateTime.now(), jd, wd, 1, LocalDateTime.now(), null, 1);
+                return JsonResult.success(result);
+            }
+        }
+        if (sign.getBegin().isAfter(LocalDateTime.now())) {
+            return JsonResult.error("签到未开始！");
+        }
+        if (sign.getEnd().isBefore(LocalDateTime.now())) {
+            return JsonResult.error("签到已过期！");
+        }
+        return JsonResult.error("未知错误！");
     }
 
 
+    /**
+     * 查询用户的所有有效和无效签到
+     *
+     * @param uid 用户id
+     * @return
+     */
     @GetMapping("uid/{uid}")
     public JsonResult getUserSign(@PathVariable("uid") Long uid) {
         // 根据用户的id查询所有的签到，当用户参加活动后，结合用户活动表，活动签到表，来查询，该语句可能存在问题
-        List<Sign> signList = signService.getAllSignByUserId(uid);
-        return JsonResult.success(signList);
+        List<Sign> signList = signService.getAllSignByUserId(uid); // 查询用户所有的签到
+        Map<String, Object> map = new HashMap<>();
+        List<Sign> vaildSign = new ArrayList<>();
+        List<Sign> unvaildSign = new ArrayList<>();
+        List<Sign> undoSign = new ArrayList<>();
+        signList.stream().forEach(sign -> {
+
+            // 查询用户的某次签到在数据库中是否有记录
+            int count = signService.isSigned(uid, sign.getId());
+
+            System.out.println(count);
+            // 未过期的签到
+            if (sign.getBegin().isAfter(LocalDateTime.now())) {
+                // 未过期且没做的签到
+                if (count == 0) {
+                    undoSign.add(sign);
+                }
+            } else {
+                // 已经签到了的
+                if (count == 1) {
+                    vaildSign.add(sign);
+                }
+                // 错过的签到
+                else {
+                    unvaildSign.add(sign);
+                }
+            }
+        });
+        map.put("valid", vaildSign);
+        map.put("unvalid", unvaildSign);
+        map.put("undo", undoSign);
+        return JsonResult.success(map);
     }
 }
