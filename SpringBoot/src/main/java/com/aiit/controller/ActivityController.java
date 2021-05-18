@@ -30,7 +30,6 @@ public class ActivityController {
 
     /**
      * 根据活动的状态 （活动的状态：-1 未开始，0 进行中，1 已结束）查询活动，若后面的参数为空，则查询所有的社团；
-     *
      * @param status
      * @return
      */
@@ -60,7 +59,6 @@ public class ActivityController {
         activity = activityService.getOne(new QueryWrapper<Activity>().eq("id", id));
         return JsonResult.success(activity);
     }
-
 
     /**
      * 根据活动名字进行查询（包括模糊查询）

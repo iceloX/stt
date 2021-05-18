@@ -6,10 +6,8 @@ import com.aiit.pojo.Community;
 import com.aiit.service.ICommunityService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +31,7 @@ public class CommunityController {
     /**
      * 查询社团的状态（社团状态：1 正在运营，0 停止运营） 若查询的参数为空，则查询所有的社团
      *
-     * @return
+     * @return json
      */
     @GetMapping({"all", "all/{status}"})
     public JsonResult getAllCommunities(@PathVariable(value = "status", required = false) Integer status) {
@@ -54,7 +52,7 @@ public class CommunityController {
      */
     @GetMapping({"id", "id/{id}"})
     public JsonResult getCommunityById(@PathVariable(value = "id", required = false) Long id) {
-        Community community = new Community();
+        Community community;
         if (id == null) {
             return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
         }
@@ -81,7 +79,7 @@ public class CommunityController {
     /**
      * 根据分数高低排序社团
      *
-     * @return
+     * @return json
      */
     @GetMapping("top")
     public JsonResult getCommunityTop() {
