@@ -1,0 +1,66 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/myclub/myclub",
+    "pages/personage/personage",
+    "pages/search/search",
+    "pages/community/community",
+    "pages/myinfo/myinfo",
+    "pages/activity/activity",
+    "pages/association/association",
+    "pages/sign/sign",
+    "pages/skill/skill"
+  ],
+  "window": {
+    "backgroundColor": "#FFFFFF",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffe66d",
+    "navigationBarTitleText": "信工社团通",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "style": "v2",
+  "tabBar": {
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "assets/home.png",
+        "selectedIconPath": "assets/homeed.png"
+      },
+      {
+        "pagePath": "pages/community/community",
+        "text": "社团",
+        "iconPath": "assets/community.png",
+        "selectedIconPath": "assets/communityed.png"
+      },
+      {
+        "pagePath": "pages/sign/sign",
+        "text": "活动签到",
+        "iconPath": "assets/sign.png",
+        "selectedIconPath": "assets/signed.png"
+      },
+      {
+        "pagePath": "pages/skill/skill",
+        "text": "技能广场",
+        "iconPath": "assets/learnskill.png",
+        "selectedIconPath": "assets/learnskilled.png"
+      },
+      {
+        "pagePath": "pages/personage/personage",
+        "text": "我的",
+        "iconPath": "assets/personage.png",
+        "selectedIconPath": "assets/personageed.png"
+      }
+    ],
+    "color": "#999999",
+    "selectedColor": "#F7C72D"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+        "desc": "你的位置信息将用于小程序定位签到"
+    }
+}
+}

@@ -1,0 +1,18 @@
+<!--pages/myinfo/myinfo.wxml-->
+
+<van-cell-group>
+  <!-- <van-cell title="用户ID" value="{{openId}}" size="large" /> -->
+  <van-cell title="昵称" value="{{userInfo.nickName}}" size="large" />
+  <van-cell title="性别" value="{{userInfo.gender==1?'男':'女'}}" size="large" />
+  <van-cell title="所在城市" value="{{userInfo.province}} {{userInfo.city}}" size="large" />
+</van-cell-group>
+
+
+<!-- 学籍信息 -->
+<van-panel title=" " desc="学籍信息">
+  <van-cell-group>
+    <van-cell title="学校" value="安徽信息工程学院" size="large" />
+    <van-cell title="学号" value="318102010319" size="large" />
+    <van-cell title="专业" value="计算机科学与技术" size="large" />
+  </van-cell-group>
+</van-panel>

@@ -1,0 +1,57 @@
+<!--pages/home/home.wxml-->
+
+<!-- 背景图块 -->
+<view class="bkg-square"></view>
+
+<!-- 填充空隙 -->
+<view style="margin-top: 0 !important;height:5px"></view>
+
+<!-- 搜索框 -->
+<view class='searchblank' bindtap='GotoSearch' style="font-size:30rpx">
+  <i-icon type="search" size="22" color="#80848f" />
+  请输入关键词搜索
+</view>
+
+<!-- 热点轮播图 -->
+<swiper class='swiperClass' autoplay indicator-color="#a39f99" indicator-active-color="#f49641" indicator-dots
+  interval="2000" duration="1000" previous-margin="30px" next-margin="30px" circular bindchange="bindchange"
+  style='height: {{swiperHeight}}px'>
+  <!-- 轮播图项 -->
+  <swiper-item wx:for="{{swipers}}" wx:key="index">
+    <image src="{{item.cover}}" class="slide-image {{swiperIndex == index ? 'active' : 'quiet'}}" mode='aspectFill'
+      data-url="{{item.id}}" bindtap="clickSwiper"></image>
+  </swiper-item>
+</swiper>
+
+<!-- 精选社团/活动Cards -->
+<van-tabs>
+  <!-- 社团tab -->
+  <van-tab title="十佳社团">
+    <scroll-view scroll-y>
+      <block>
+        <van-card class="vantcard" wx:for="{{communityTop}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}" data-flag="1" bindtap="clickAssCard">
+          <image class="vantcard_image" slot="thumb"
+            src="{{item.logo}}"
+            mode='aspectFill' />
+          <van-tag slot="tags" plain type="danger">校级十佳社团</van-tag>
+        </van-card>
+      </block>
+    </scroll-view>
+  </van-tab>
+
+  <!-- 活动tab -->
+  <van-tab title="精选活动">
+    <scroll-view scroll-y>
+      <block>
+        <van-card class="vantcard" wx:for="{{activityTop}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}" data-flag="1" bindtap="clickActCard">
+          <image class="vantcard_image" slot="thumb"
+            src="{{item.cover}}"
+            mode='aspectFill' />
+          <van-tag slot="tags" plain type="danger">院级</van-tag>
+        </van-card>
+
+      </block>
+    </scroll-view>
+  </van-tab>
+
+</van-tabs>

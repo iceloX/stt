@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "活动详情",
+  "usingComponents": {
+    "van-steps": "../../vant/steps/index",
+    "van-panel": "../../vant/panel/index",
+    "van-cell": "../../vant/cell/index",
+    "van-cell-group": "../../vant/cell-group/index",
+    "van-button": "../../vant/button/index"
+  }
+}

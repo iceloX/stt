@@ -1,0 +1,39 @@
+<!--pages/community/community.wxml-->
+
+<!-- 搜索框 -->
+<view class='searchblank' bindtap='GotoSearch' style="font-size:30rpx">
+  <i-icon type="search" size="22" color="#80848f" />
+  请输入关键词搜索
+</view>
+
+<van-tabs>
+  <!-- 社团tab -->
+  <van-tab title="社团">
+    <scroll-view scroll-y >
+      <block calss="test">
+        <van-card class="vantcard" wx:for="{{community}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}" data-flag="1" bindtap="clickAssCard">
+          <image class="vantcard_image" slot="thumb"
+            src="{{item.logo}}"
+            mode='aspectFill' />
+          <van-tag slot="tags" plain type="danger">校级十佳社团</van-tag>
+        </van-card>
+      </block>
+    </scroll-view>
+  </van-tab>
+
+  <!-- 活动tab -->
+  <van-tab title="活动">
+  
+    <scroll-view scroll-y>
+      <block>
+
+        <van-card class="vantcard" wx:for="{{activity}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}" data-flag="{{item.id}}" bindtap="clickActCard">
+          <image class="vantcard_image" slot="thumb"
+            src="{{item.cover}}"
+            mode='aspectFill' />
+          <van-tag slot="tags" plain type="danger">院级</van-tag>
+        </van-card>
+      </block>
+    </scroll-view>
+  </van-tab>
+</van-tabs>

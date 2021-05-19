@@ -1,0 +1,50 @@
+<!--pages/search/search.wxml-->
+<!-- 搜索框 -->
+<view class="searchbox">
+  <van-search value="{{ value }}" placeholder="请输入搜索关键词" background="#FBFBFB" bind:search="onSearch" bind:clear="onClear" />
+</view>
+
+<!-- 未搜索前界面 -->
+<view wx:if="{{ifSearch == false}}">
+  <van-panel title="大家都在搜" >
+    <!-- 热搜 -->
+    <!-- <view class='hot'>
+      <view wx:for="{{ hotSearchText }}">
+        <view wx:if="{{index<3}}">
+            <van-tag class="tag" size="medium" round color='#E8E8E8' text-color='#222222' bindtap="onHotSearch" data-text="{{item.searchtext}}"><van-icon class="fireicon" name="fire" color='#FF6477'/>{{item.searchtext}}</van-tag>
+        </view>
+        <view wx:else>
+            <van-tag class="tag" size="medium" round color='#E8E8E8' text-color='#222222' bindtap="onHotSearch" data-text="{{item.searchtext}}">{{item.searchtext}}   </van-tag>
+        </view>
+      </view>
+    </view> -->
+  </van-panel>
+</view>
+
+<!-- 搜索结果界面 -->
+<view wx:if="{{ifSearch == true}}">
+<van-tabs swipeable>
+  <van-tab title="活动">
+    <!-- <view wx:if="{{eventList.length!==0}}">
+      <view wx:for="{{eventList}}" wx:for-item="event" bindtap='Gotoeventdetail' data-id='{{event._id}}'> 
+        <i-cell title="{{event.name}}" is-link></i-cell>
+      </view>
+    </view>
+    <view wx:else style='margin-top:100rpx'>
+        <i-load-more tip="暂无数据" loading="{{ false }}" />
+    </view> -->
+  </van-tab>
+
+  <van-tab title="社团">
+    <!-- <view wx:if="{{clubList.length!==0}}">
+      <view wx:for="{{clubList}}" wx:for-item="club" bindtap='Gotoclubdetail' data-id='{{club._id}}'> 
+        <i-cell title="{{club.name}}" is-link></i-cell>
+      </view>
+    </view>
+    <view wx:else style='margin-top:100rpx'>
+      <i-load-more tip="暂无数据" loading="{{ false }}" />
+    </view> -->
+  </van-tab>
+</van-tabs>
+
+</view>

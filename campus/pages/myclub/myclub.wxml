@@ -1,0 +1,13 @@
+<!--pages/myclub/myclub.wxml-->
+
+<!-- 已加入的社团列表 -->
+<!-- <scroll-view y>
+    <van-card desc="描述信息......" title="社团名称" thumb="https://img01.yzcdn.cn/vant/ipad.jpeg">
+      <van-tag slot="tags" plain type="danger">十佳社团</van-tag>
+      <van-button >进入社团</van-button>
+    </van-card>
+</scroll-view> -->
+
+<view class="bkg">
+
+</view>

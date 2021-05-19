@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我的信息",
+  "usingComponents": {
+    "van-cell": "../../vant/cell/index",
+    "van-cell-group": "../../vant/cell-group/index",
+    "van-panel": "../../vant/panel/index"
+  }
+}

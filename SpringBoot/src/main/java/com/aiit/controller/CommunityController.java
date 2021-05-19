@@ -81,9 +81,9 @@ public class CommunityController {
      *
      * @return json
      */
-    @GetMapping("top")
-    public JsonResult getCommunityTop() {
-        List<Community> communities = communityService.list(new QueryWrapper<Community>().orderByDesc("score"));
+    @GetMapping("top/{num}")
+    public JsonResult getCommunityTop(@PathVariable("num") Integer num) {
+        List<Community> communities = communityService.list(new QueryWrapper<Community>().orderByDesc("score").last("limit "+num));
         return JsonResult.success(communities);
     }
 

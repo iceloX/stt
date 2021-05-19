@@ -1,0 +1,7 @@
+/* pages/myclub/myclub.wxss */
+
+.card {
+  border: 1px solid red !important;
+  border-radius: 5px;
+}
+

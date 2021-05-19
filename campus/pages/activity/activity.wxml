@@ -1,0 +1,40 @@
+<!--pages/activity/activity.wxml-->
+
+<!-- 活动宣传图 -->
+<image class="image" src="{{url}}" mode="aspectFill" />
+
+<!-- 活动详细信息 -->
+<van-cell-group>
+  <van-cell title="活动名称" value="社团活动月" />
+  <van-cell title="活动时间" value="2021/1/1 12:00" />
+  <van-cell title="活动地点" value="东二503" />
+  <van-cell title="活动描述" label="描述信息" />
+  <van-cell title="举办单位" value="教务处" />
+  <van-cell title="活动学分" value="2.0" />
+</van-cell-group>
+
+<!-- 活动流程进度 -->
+<van-panel title="活动进度">
+  <van-steps active="{{active}}" direction="vertical" steps="{{ steps }}" active-icon="success" />
+</van-panel>
+
+<!-- 开发测试按钮 -->
+<!-- <van-button bindtap="next">
+  下一步
+</van-button> -->
+<!-- <view style="display: flex;justify-content: center;" >
+  <van-button custom-class="button" round color="linear-gradient(to right, #4bb0ff, #6149f6)" bind:click="signUpActivity" >
+    {{msg}}
+  </van-button>
+</view> -->
+
+<!-- 报名按钮 -->
+<button class="subbtn"  bindtap="signUpActivity" wx:if="{{!isJoin}}">
+  报名参加
+</button>
+<button class="subbtn"  wx:if="{{isJoin}}">
+  已报名
+</button>
+
+
+

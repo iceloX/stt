@@ -1,10 +1,13 @@
 package com.aiit.controller;
 
+import com.aiit.pojo.Community;
 import com.aiit.utils.returns.CommonEnum;
 import com.aiit.utils.returns.JsonResult;
 import com.aiit.pojo.Activity;
 import com.aiit.service.IActivityService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -93,5 +96,11 @@ public class ActivityController {
                         .inSql("id", "select act_id from com_act where com_id =" + id));
 
         return JsonResult.success(activities);
+    }
+
+    @GetMapping("top/{num}")
+    public JsonResult getActiActivityTop(@PathVariable("num") Integer num){
+        List<Activity> communities = activityService.list(new QueryWrapper<Activity>().orderByDesc("score").last("limit "+num));
+        return JsonResult.success(communities);
     }
 }

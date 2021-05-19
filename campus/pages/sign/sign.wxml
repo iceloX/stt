@@ -1,0 +1,8 @@
+<!--pages/sign/sign.wxml-->
+
+<map class="map" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}"></map>
+
+<van-panel style="width:100%;position:fixed;bottom:0;" title="签到活动标题" desc="xx省xx市xx路xx号">
+  <van-button class="button" color="#7232dd" bindtap="scan">扫码签到</van-button>
+  <!-- <van-button plain hairline type="primary">扫码签到</van-button> -->
+</van-panel>
