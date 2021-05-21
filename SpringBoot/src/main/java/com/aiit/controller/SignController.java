@@ -2,6 +2,7 @@ package com.aiit.controller;
 
 import com.aiit.config.quartz.DynamicTaskConfig;
 import com.aiit.pojo.Sign;
+import com.aiit.pojo.User;
 import com.aiit.service.IActivityService;
 import com.aiit.service.ICommunityService;
 import com.aiit.service.ISignService;
@@ -87,7 +88,9 @@ public class SignController {
                     String cron = CronDateUtils.getCron(DateUtil.loca2Date(sign.getBegin()));
                     dynamicTaskConfig.startCron(taskName, () -> {
                         try {
+
                             String code = QRCodeUtil.getQRCodeBase64(String.valueOf(sign.getId()));
+
                             System.out.println(code);
 
                         } catch (Exception e) {
@@ -105,39 +108,49 @@ public class SignController {
      * 用户完成签到
      *
      * @param id     签到的id
-     * @param userId 用户的id
+     * @param openId 用户的id
      * @param jd     用户签到经度
      * @param wd     用户签到纬度
      * @return
      */
     @GetMapping("do")
     public JsonResult SignById(@RequestParam("id") Long id,
-                               @RequestParam("userId") Long userId,
+                               @RequestParam("openId") String openId,
                                @RequestParam("jd") BigDecimal jd,
                                @RequestParam("wd") BigDecimal wd) {
-        if (id == null || userId == null || jd == null || wd == null) {
+        if (id == null || openId == null || jd == null || wd == null) {
             // 当参数存在空值的时候
             return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
         }
 
+        System.out.println(id +"\t" +openId+"\t"+jd+"\t"+wd);
+
         // 这里不需要再次判断该用户是否参与该活动，因为前端的签到显示是通过数据库查询显示的，
         // 如果数据库中没有记录，签到的信息不会显示在用户的页面上
         Sign sign = signService.getOne(new QueryWrapper<Sign>().eq("id", id));
+
+        System.out.println(sign.toString());
+
+        User user = userService.getOne(new QueryWrapper<User>().eq("open_id", openId));
+
+        System.out.println(user.toString());
+
         // 以下代码根据数据库中签到地址经纬度和用户传入的经纬度的距离，最大误差位0.1m ,返回的单位：m
         double distance = DistanceUtil.getDistance(jd.doubleValue(), wd.doubleValue(), sign.getJd().doubleValue(), sign.getWd().doubleValue());
         double scope = sign.getScope().doubleValue();
+        System.out.println("====="+distance+"+++");
         // 当距离不在设定的范围内，则用户签到失败！
         if (distance > scope) {
             return JsonResult.error("您当前位置不在既定位置之内，签到失败！");
         }
         if (sign.getBegin().isBefore(LocalDateTime.now()) && sign.getEnd().isAfter(LocalDateTime.now())) {
 
-            int count = signService.isSigned(userId, id);
+            int count = signService.isSigned(user.getId(), id);
             if (count == 1) {
                 return JsonResult.error("您当前已经签到过了");
             } else {
                 // 插入用户签到的记录
-                int result = signService.doSign(userId, id, LocalDateTime.now(), jd, wd, 1, LocalDateTime.now(), null, 1);
+                int result = signService.doSign(user.getId(), id, LocalDateTime.now(), jd, wd, 1, LocalDateTime.now(), null, 1);
                 return JsonResult.success(result);
             }
         }

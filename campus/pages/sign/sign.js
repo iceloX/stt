@@ -5,8 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    latitude: '',
-    longitude: '',
+    latitude:31.281043,
+    longitude: 118.357307,
     markers: '',
     result:'',
   },
@@ -114,8 +114,8 @@ Page({
       success(res) {
         console.log(res)
         self.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
+          //latitude: res.latitude,
+          //longitude: res.longitude,
           markers: [
             {
               id: 1,
@@ -149,6 +149,10 @@ Page({
    */
   scan:function() {
     var that = this;
+    console.log( that.data.latitude)
+    console.log(that.data.longitude)
+    var app = getApp();
+    console.log(app.globalData.openId)
     wx.scanCode({
       success: function(res){
         var result = res.result ;
@@ -156,6 +160,22 @@ Page({
           result: result
         })
         console.log(res.result)
+        
+        wx.request({
+          url: 'http://localhost/sign/do',
+          data:{
+            "id":res.result,
+            "openId":app.globalData.openId,
+            "wd":that.data.latitude,
+            "jd":that.data.longitude
+          },
+          success:function(res){
+            console.log(res) // 返回签到的结果
+          },
+          fail:function(){
+            console.log("出错了")
+          }
+        })
       }
     })
   }
