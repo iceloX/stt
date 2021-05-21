@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 /**
  * @Author icelo
  * @Date 2021/4/29
@@ -20,8 +22,8 @@ import org.springframework.web.client.RestTemplate;
 public class UserServiceImpl extends ServiceImpl<IUserMapper, User> implements IUserService {
 
 
-    private static String appid = "wxb3906b75648e1658";
-    private static String secret = "efdcfcaf93df81a915d00d9503c505b6";
+    private static String appid = "wx77e608257a15f1b7";
+    private static String secret = "af0ca6af0c53211e839801efdff55d1e";
 
     RestTemplate restTemplate;
 
@@ -46,5 +48,10 @@ public class UserServiceImpl extends ServiceImpl<IUserMapper, User> implements I
     @Override
     public User getUserByActId(Long actId,Long userId) {
         return userMapper.getUserByActId(actId,userId);
+    }
+
+    @Override
+    public List<User> getUserByComId(Long cid) {
+        return userMapper.getUserByComId(cid);
     }
 }

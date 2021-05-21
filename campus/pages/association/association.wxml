@@ -1,7 +1,7 @@
 <!--pages/association/association.wxml-->
 <swiper class="swiper" autoplay indicator-dots interval="2000" duration="1000" circular bindchange="">
   <swiper-item wx:for="{{swipers}}" wx:key="index">
-    <image src="{{item.url}}" class="slide-image" mode='aspectFill' data-url="{{item.openurl}}" bindtap="clickSwiper">
+    <image src="{{item.cover}}" class="slide-image" mode='aspectFill' data-url="{{item.openurl}}" bindtap="clickSwiper">
     </image>
   </swiper-item>
 </swiper>
@@ -9,31 +9,29 @@
 <van-tabs>
   <van-tab title="详情">
     <van-cell-group>
-      <van-cell title="社团名称" value="..." />
+      <van-cell title="社团名称" value="{{community.name}}" />
       <van-cell title="成立日期" value="2021/1/1 12:00" />
-      <van-cell title="社团活动地点" value="东二503" />
-      <van-cell title="社团描述" label="描述信息........................................." />
-      <van-cell title="指导老师" value="................." />
+      <van-cell title="社团分数" value="{{community.score}}" />
+      <van-cell title="社团描述" label="{{community.description}}" />
+      <van-cell title="负责人" value="{{community.head}}" />
     </van-cell-group>
+
   </van-tab>
 
   <van-tab title="成员">
     <van-cell-group>
-      <van-cell title="成员名称" value="普通成员"/>
-      <van-cell title="成员名称" value="普通成员"/>
-      <van-cell title="成员名称" value="普通成员"/>
-      <van-cell title="成员名称" value="普通成员"/>
-      <van-cell title="成员名称" value="普通成员"/>
-      <van-cell title="成员名称" value="普通成员"/>
-      <van-cell title="成员名称" value="普通成员"/>
+
+   
+
+      <van-cell title="成员名称" wx:for="{{users}}"  wx:key="index" value="{{item.nickname}} "/>
+
     </van-cell-group>
   </van-tab>
 
   <van-tab title="活动">
-    <van-card class="vantcard" desc="描述信息......" title="活动名称" data-flag="1" bindtap="clickActCard">
-      <image class="vantcard_image" slot="thumb"
-        src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1940459017,1771754237&fm=26&gp=0.jpg"
-        mode='aspectFill' />
+    <van-card class="vantcard" wx:for="{{activities}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}"
+      data-flag="1" bindtap="clickActCard">
+      <image class="vantcard_image" slot="thumb" src="{{item.cover}}" mode='aspectFill' />
       <van-tag slot="tags" plain type="danger">院级</van-tag>
     </van-card>
   </van-tab>

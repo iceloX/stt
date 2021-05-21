@@ -96,7 +96,7 @@ Page({
       url: 'http://localhost/activity/top/3',
       method: 'GET',
       success: function (e) {
-        console.log(e.data);
+      
         self.setData({
           // 
           swipers:e.data.result
@@ -117,8 +117,6 @@ Page({
       url: 'http://localhost/community/top/10',
       method: 'GET',
       success: function (e) {
-        console.log("获取成功！")
-        console.log(e.data);
         self.setData({
          //swipers: e.data.result,
         communityTop: e.data.result
@@ -137,8 +135,6 @@ Page({
       url: 'http://localhost/activity/top/10',
       method: 'GET',
       success: function (e) {
-        console.log("获取成功！")
-        console.log(e.data);
         self.setData({
          //swipers: e.data.result,
         activityTop: e.data.result
@@ -180,7 +176,7 @@ Page({
    */
   clickAssCard(e) {
     wx.navigateTo({
-      url: '../../pages/association/association?flag='+e.currentTarget.dataset.flag,
+      url: '../../pages/association/association?id='+e.currentTarget.dataset.id,
     })
   },
 

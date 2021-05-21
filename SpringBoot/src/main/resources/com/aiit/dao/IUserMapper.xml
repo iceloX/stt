@@ -4,4 +4,7 @@
     <select id="getUserByActId" resultType="com.aiit.pojo.User">
         SELECT * from user RIGHT JOIN user_act ON `user`.id = user_act.user_id WHERE  user_act.act_id = #{actId} AND user_act.user_id = #{userId}
     </select>
+    <select id="getUserByComId" resultType="com.aiit.pojo.User">
+        SELECT * FROM `user` RIGHT JOIN user_com ON `user`.id = user_com.user_id WHERE user_com.com_id = #{cid}
+    </select>
 </mapper>

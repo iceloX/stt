@@ -5,18 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-    active:4,
-    swipers:'',
-    steps: [
-      {text: '荣誉1',desc: '获得时间',
+    active: 4,
+    community: '', // 当前的社团
+    activities:'', // 社团中的活动
+    swipers: '',
+    users:'', // 社团中的用户
+    steps: [{
+        text: '荣誉1',
+        desc: '获得时间',
       },
-      {text: '荣誉2',desc: '获得时间',
+      {
+        text: '荣誉2',
+        desc: '获得时间',
       },
-      {text: '荣誉3',desc: '获得时间',
+      {
+        text: '荣誉3',
+        desc: '获得时间',
       },
-      {text: '荣誉4',desc: '获得时间',
+      {
+        text: '荣誉4',
+        desc: '获得时间',
       },
-      {text: '荣誉5',desc: '获得时间',
+      {
+        text: '荣誉5',
+        desc: '获得时间',
       },
     ]
   },
@@ -25,7 +37,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-this.getSwiper()
+    let id = decodeURIComponent(options.id);
+    console.log(id)
+    this.getCommunityById(id);
+    this.getActivityByComId(id);
+    this.getUserByComId(id);
+    this.getSwiper()
   },
 
   /**
@@ -53,6 +70,7 @@ this.getSwiper()
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+
 
   },
 
@@ -89,16 +107,68 @@ this.getSwiper()
   getSwiper() {
     var self = this;
     wx.request({
-      url: '',
+      url: 'http://localhost/activity/top/3',
       method: 'GET',
       success: function (e) {
         console.log(e.data);
         self.setData({
-          swipers: e.data
+          swipers: e.data.result
         });
       },
       fail: function (e) {
         console.log("获取swiper失败");
+      }
+    })
+  },
+  /**
+   * 根据社团id查询社团
+   */
+  getCommunityById(id) {
+    var self = this
+    wx.request({
+      url: 'http://localhost/community/id/' + id,
+      method: 'GET',
+      success: function (e) {
+        console.log(e.data.result)
+        self.setData({
+          //swipers: e.data.result,
+          community: e.data.result
+        });
+      },
+      fail: function (e) {
+        console.log("获取社团失败");
+      }
+    })
+  },
+  getActivityByComId(id){
+    var self = this
+    wx.request({
+      url: 'http://localhost/activity/community/' + id,
+      method: 'GET',
+      success: function (e) {
+        console.log(e.data.result)
+        self.setData({
+         activities:e.data.result
+        });
+      },
+      fail: function (e) {
+        console.log("获取社团失败");
+      }
+    })
+  },
+  getUserByComId(id){
+    var self = this
+    wx.request({
+      url: 'http://localhost/user/community/' + id,
+      method: 'GET',
+      success: function (e) {
+        console.log(e.data.result)
+        self.setData({
+         users:e.data.result
+        });
+      },
+      fail: function (e) {
+        console.log("获取社团失败");
       }
     })
   }

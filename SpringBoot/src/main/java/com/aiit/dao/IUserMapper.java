@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @Author icelo
  * @Date 2021/4/29
@@ -14,4 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IUserMapper extends BaseMapper<User> {
    User getUserByActId(@Param("actId") Long actId,@Param("userId") Long userId);
+
+   List<User> getUserByComId(@Param("cid") Long cid);
 }

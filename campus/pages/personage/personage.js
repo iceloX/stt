@@ -1,4 +1,7 @@
 // pages/personage/personage.js
+
+const my = getApp();
+
 Page({
 
   /**
@@ -84,6 +87,34 @@ Page({
             isLogin: true
           });
           console.log(app.globalData.userInfo)
+          ///  在用户获取完用户信息之后登录
+          wx.login({
+            success: res => {
+            //发送 res.code 到后台换取 openId, sessionKey, unionId
+              var code = res.code; //返回code
+              console.log("获取到的code"+code)
+              console.log(app.globalData.userInfo)
+              wx.request({
+                url:'http://localhost/user/login',
+                data:{
+                  "code":code,
+                  'nickname':app.globalData.userInfo.nickName,
+                  'avatar':app.globalData.userInfo.avatarUrl
+                },
+                success: function (res) {
+                  var openid = res.data.result.openId //返回openid
+                  console.log(openid)
+                  console.log(res);
+                  var app = getApp();
+                  app.globalData.openId = openid;
+                },
+                fail:function(){
+                  console.log('请求出错！')
+                }
+              
+              })
+            }
+          })
         },
         fail: function () {
           console.log("用户信息授权失败！")

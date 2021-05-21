@@ -7,6 +7,7 @@ Page({
   data: {
     userInfo: '',
     openId: null,
+    userServerInfo:'' // 用户保存在服务器上的信息
   },
 
   /**
@@ -18,7 +19,7 @@ Page({
       userInfo: app.globalData.userInfo,
       openId: app.globalData.openId
     });
-    console.log(app.globalData.openId)
+    this.getUserServerInfo();
   },
 
   /**
@@ -68,5 +69,25 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  /**
+   * 获取用户的详细信息
+   */
+  getUserServerInfo:function(){
+    var self = this;
+    var app = getApp();
+    wx.request({
+      url: 'http://localhost/user/info/',
+      method:'GET',
+      data:{
+        "openId":app.globalData.openId
+      },
+      success:function(res){
+        self.setData({
+          userServerInfo:res.data.result
+        })
+      }
+    })
   }
 })

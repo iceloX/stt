@@ -29,7 +29,7 @@
   <van-tab title="十佳社团">
     <scroll-view scroll-y>
       <block>
-        <van-card class="vantcard" wx:for="{{communityTop}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}" data-flag="1" bindtap="clickAssCard">
+        <van-card class="vantcard" wx:for="{{communityTop}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}" data-id="{{item.id}}" bindtap="clickAssCard">
           <image class="vantcard_image" slot="thumb"
             src="{{item.logo}}"
             mode='aspectFill' />
