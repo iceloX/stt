@@ -1,6 +1,7 @@
 package com.aiit.service.impl;
 
 import com.aiit.dao.IUserMapper;
+import com.aiit.pojo.Community;
 import com.aiit.pojo.User;
 import com.aiit.service.IUserService;
 import com.alibaba.fastjson.JSON;
@@ -53,5 +54,10 @@ public class UserServiceImpl extends ServiceImpl<IUserMapper, User> implements I
     @Override
     public List<User> getUserByComId(Long cid) {
         return userMapper.getUserByComId(cid);
+    }
+
+    @Override
+    public List<Community> getUserAllCommunity(Long userId) {
+        return userMapper.getUserAllCommunity(userId);
     }
 }

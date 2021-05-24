@@ -1,5 +1,6 @@
 package com.aiit.controller;
 
+import com.aiit.pojo.Community;
 import com.aiit.pojo.User;
 import com.aiit.service.IUserService;
 import com.aiit.utils.returns.CommonEnum;
@@ -89,4 +90,25 @@ public class UserController {
         }
 
     }
+
+    /**
+     * 获取用户参加的全部社团
+     * @param openId 用户的openId
+     * @return
+     */
+    @GetMapping("all/community")
+    public JsonResult getUserAllCommunity(@RequestParam("openId")String openId){
+        if(openId.isEmpty()) {
+            return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
+
+        }
+        User user = userService.getOne(new QueryWrapper<User>().eq("open_id", openId));
+        if(user== null){
+            return JsonResult.error("用户不存在");
+        }
+        List<Community> userAllCommunity = userService.getUserAllCommunity(user.getId());
+        return JsonResult.success(userAllCommunity);
+    }
+
+
 }
