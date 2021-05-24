@@ -11,4 +11,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface IActivityService extends IService<Activity> {
     Activity getActBySignId(@Param("signId") Long signId);
+
+    int isPartedActivity(@Param("userId")Long userId,@Param("aid") Long aid);
 }

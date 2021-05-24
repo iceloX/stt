@@ -1,6 +1,8 @@
 package com.aiit.controller;
 
 import com.aiit.pojo.Community;
+import com.aiit.pojo.User;
+import com.aiit.service.IUserService;
 import com.aiit.utils.returns.CommonEnum;
 import com.aiit.utils.returns.JsonResult;
 import com.aiit.pojo.Activity;
@@ -25,6 +27,13 @@ import java.util.List;
 public class ActivityController {
 
     IActivityService activityService;
+
+    IUserService userService;
+
+    @Autowired
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setActivityService(IActivityService activityService) {
@@ -112,8 +121,18 @@ public class ActivityController {
     @GetMapping("/activity/isparted")
     public JsonResult isPartedActivity(@RequestParam("openId")String openId,@RequestParam("aid") Long aid){
 
-        
-
-        return new JsonResult();
+        if(openId.isEmpty()|| aid == null){
+            return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
+        }
+        User user = userService.getOne(new QueryWrapper<User>().eq("open_id", openId));
+        if(user==null){
+            return JsonResult.error("请求参数错误");
+        }
+        int partedActivity = activityService.isPartedActivity(user.getId(), aid);
+        boolean isParted = false;
+        if(partedActivity > 0 ){
+            isParted =true;
+        }
+        return  JsonResult.success(isParted);
     }
 }

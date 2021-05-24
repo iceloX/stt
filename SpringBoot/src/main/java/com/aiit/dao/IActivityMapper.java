@@ -14,4 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface IActivityMapper extends BaseMapper<Activity> {
 
      Activity getActBySignId(@Param("signId") Long signId);
+
+     int isPartedActivity(@Param("userId")Long userId,@Param("aid") Long aid);
 }

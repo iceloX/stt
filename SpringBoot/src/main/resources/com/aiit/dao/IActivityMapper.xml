@@ -9,4 +9,7 @@
                  LEFT JOIN sign st ON acts.sign_id = st.id
         WHERE st.id = #{signId}
     </select>
+    <select id="isPartedActivity" resultType="java.lang.Integer">
+        select * FROM user_act WHERE user_id = #{userId} AND act_id = #{aid}
+    </select>
 </mapper>

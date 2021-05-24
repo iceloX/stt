@@ -26,4 +26,9 @@ public class ActivityServiceImpl extends ServiceImpl<IActivityMapper, Activity> 
     public Activity getActBySignId(Long signId) {
         return activityMapper.getActBySignId(signId);
     }
+
+    @Override
+    public int isPartedActivity(Long userId, Long aid) {
+        return activityMapper.isPartedActivity(userId, aid);
+    }
 }
