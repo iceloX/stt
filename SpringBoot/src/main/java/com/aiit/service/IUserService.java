@@ -1,5 +1,6 @@
 package com.aiit.service;
 
+import com.aiit.pojo.Community;
 import com.aiit.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,6 @@ public interface IUserService extends IService<User> {
     User getUserByActId(@Param("actId") Long actId,@Param("userId") Long userId);
 
     List<User> getUserByComId(@Param("cid") Long cid);
+
+    List<Community> getUserAllCommunity(@Param("userId") Long userId);
 }

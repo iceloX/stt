@@ -1,5 +1,6 @@
 package com.aiit.controller;
 
+import com.aiit.pojo.Community;
 import com.aiit.pojo.User;
 import com.aiit.service.IUserService;
 import com.aiit.utils.returns.CommonEnum;
@@ -30,6 +31,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * 小程序用户登录实现
+     * @param code
+     * @param avatar
+     * @param nickname
+     * @return
+     */
     @GetMapping("/login")
     private JsonResult login(
             @RequestParam("code") String code,
@@ -64,7 +72,11 @@ public class UserController {
         return JsonResult.success(user);
     }
 
-
+    /**
+     * 根据社团id查询所有用户
+     * @param id 社团id
+     * @return
+     */
     @GetMapping("community/{id}")
     private JsonResult getUserByComId(@PathVariable("id") Long id) {
         List<User> users;
@@ -75,6 +87,11 @@ public class UserController {
         return JsonResult.success(users);
     }
 
+    /**
+     * 根据用户的openId 查询用户信息
+     * @param openId
+     * @return
+     */
     @GetMapping("info")
     private JsonResult getUserByOpenId(@RequestParam("openId") String openId) {
         System.out.println(openId);
@@ -89,4 +106,24 @@ public class UserController {
         }
 
     }
+
+    /**
+     * 获取用户参加的全部社团
+     * @param openId 用户的openId
+     * @return
+     */
+    @GetMapping("all/community")
+    public JsonResult getUserAllCommunity(@RequestParam("openId")String openId){
+        if(openId.isEmpty()) {
+            return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
+
+        }
+        User user = userService.getOne(new QueryWrapper<User>().eq("open_id", openId));
+        if(user== null){
+            return JsonResult.error("用户不存在");
+        }
+        List<Community> userAllCommunity = userService.getUserAllCommunity(user.getId());
+        return JsonResult.success(userAllCommunity);
+    }
+
 }

@@ -118,7 +118,13 @@ public class ActivityController {
         return JsonResult.success(communities);
     }
 
-    @GetMapping("/activity/isparted")
+    /**
+     * 查询用户是否参加了社团
+     * @param openId 用户的openId
+     * @param aid 社团id
+     * @return true:参加了社团，false:没有参加社团
+     */
+    @GetMapping("/isparted")
     public JsonResult isPartedActivity(@RequestParam("openId")String openId,@RequestParam("aid") Long aid){
 
         if(openId.isEmpty()|| aid == null){

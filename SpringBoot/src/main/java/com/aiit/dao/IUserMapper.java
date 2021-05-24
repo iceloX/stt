@@ -1,5 +1,6 @@
 package com.aiit.dao;
 
+import com.aiit.pojo.Community;
 import com.aiit.pojo.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.fasterxml.jackson.databind.ser.Serializers;
@@ -18,4 +19,7 @@ public interface IUserMapper extends BaseMapper<User> {
    User getUserByActId(@Param("actId") Long actId,@Param("userId") Long userId);
 
    List<User> getUserByComId(@Param("cid") Long cid);
+
+   List<Community> getUserAllCommunity(@Param("userId") Long userId);
+
 }

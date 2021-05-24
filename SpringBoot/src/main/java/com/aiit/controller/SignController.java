@@ -88,9 +88,7 @@ public class SignController {
                     String cron = CronDateUtils.getCron(DateUtil.loca2Date(sign.getBegin()));
                     dynamicTaskConfig.startCron(taskName, () -> {
                         try {
-
                             String code = QRCodeUtil.getQRCodeBase64(String.valueOf(sign.getId()));
-
                             System.out.println(code);
 
                         } catch (Exception e) {
