@@ -1,10 +1,14 @@
 // pages/activity/activity.js
+var util = require('../../utils/util.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    activityInfo:'',
+    begin:'', // 活动开始时间
+    end:'', // 活动结束时间
     active:0,
     maxactive:'4',
     isJoin:false,
@@ -20,7 +24,7 @@ Page({
       {text: '活动结束',desc: '圆满完成',
       },
     ],
-    url:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F30442067bbd3f478e8eab9c5927faa7faac4da204dcfd-VYVBxs_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1622208813&t=ec2dcba7be73d1edf7c817600ab03aa4",
+    
 
   },
 
@@ -28,6 +32,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options.flag)
+    this.getActivityById(options.flag)
 
   },
 
@@ -102,5 +108,30 @@ Page({
       isJoin: "true"
     })
     /* 发送请求到服务器 */
+  },
+
+  getActivityById(id){
+    var self = this
+    wx.request({
+      url: 'http://localhost/activity/id/'+id,
+      method:'GET',
+      success:function(res){
+        if(res.data.result!=null){
+          var begin = new Date(res.data.result.begin)
+          var end = new Date(res.data.result.end)
+          begin = util.formatTime(begin)
+          end = util.formatTime(end)
+          self.setData({
+            begin:begin,
+            end:end
+          })
+        }
+        // console.log(res.data.result)
+        self.setData({
+         activityInfo: res.data.result
+         });
+      }
+    })
+
   }
 })

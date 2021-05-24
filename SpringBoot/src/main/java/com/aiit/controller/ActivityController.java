@@ -98,9 +98,22 @@ public class ActivityController {
         return JsonResult.success(activities);
     }
 
+    /**
+     * 查询活动排名前几名
+     * @param num 前几
+     * @return
+     */
     @GetMapping("top/{num}")
     public JsonResult getActiActivityTop(@PathVariable("num") Integer num){
         List<Activity> communities = activityService.list(new QueryWrapper<Activity>().orderByDesc("score").last("limit "+num));
         return JsonResult.success(communities);
+    }
+
+    @GetMapping("/activity/isparted")
+    public JsonResult isPartedActivity(@RequestParam("openId")String openId,@RequestParam("aid") Long aid){
+
+        
+
+        return new JsonResult();
     }
 }

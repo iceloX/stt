@@ -1,15 +1,15 @@
 <!--pages/activity/activity.wxml-->
 
 <!-- 活动宣传图 -->
-<image class="image" src="{{url}}" mode="aspectFill" />
+<image class="image" src="{{activityInfo.cover}}" mode="aspectFill" />
 
 <!-- 活动详细信息 -->
 <van-cell-group>
-  <van-cell title="活动名称" value="社团活动月" />
-  <van-cell title="活动时间" value="2021/1/1 12:00" />
-  <van-cell title="活动地点" value="东二503" />
-  <van-cell title="活动描述" label="描述信息" />
-  <van-cell title="举办单位" value="教务处" />
+  <van-cell title="活动名称" value="{{activityInfo.name}}" />
+  <van-cell title="开始时间" value="{{begin}}" />
+  <van-cell title="结束时间" value="{{end}}" />
+  <van-cell title="活动地点" value="{{activityInfo.place}}" />
+  <van-cell title="活动描述" label="{{activityInfo.description}}" />
   <van-cell title="活动学分" value="2.0" />
 </van-cell-group>
 

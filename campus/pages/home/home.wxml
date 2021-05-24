@@ -43,7 +43,7 @@
   <van-tab title="精选活动">
     <scroll-view scroll-y>
       <block>
-        <van-card class="vantcard" wx:for="{{activityTop}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}" data-flag="1" bindtap="clickActCard">
+        <van-card class="vantcard" wx:for="{{activityTop}}" wx:key="index" desc="{{item.description}}" title="{{item.name}}" data-flag="{{item.id}}" bindtap="clickActCard">
           <image class="vantcard_image" slot="thumb"
             src="{{item.cover}}"
             mode='aspectFill' />

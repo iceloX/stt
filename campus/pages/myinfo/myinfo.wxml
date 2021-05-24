@@ -2,7 +2,7 @@
 
 <van-cell-group>
   <!-- <van-cell title="用户ID" value="{{openId}}" size="large" /> -->
-  <van-cell title="昵称" value="{{userInfo.nickName}}" size="large" />
+  <van-cell title="姓名" value="{{userServerInfo.name}}" size="large" />
   <van-cell title="性别" value="{{userInfo.gender==1?'男':'女'}}" size="large" />
   <van-cell title="所在城市" value="{{userInfo.province}} {{userInfo.city}}" size="large" />
 </van-cell-group>
