@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aiit.dao.ICommunityMapper">
+    <select id="isPartedCommunity" resultType="java.lang.Integer">
+        select * FROM user_com WHERE user_id = #{userId} AND com_id = #{cid}
+    </select>
 </mapper>

@@ -41,7 +41,7 @@ public class ActivityController {
     }
 
     /**
-     * 根据活动的状态 （活动的状态：-1 未开始，0 进行中，1 已结束）查询活动，若后面的参数为空，则查询所有的社团；
+     * 根据活动的状态 （活动的状态：-1 未开始，0 进行中，1 已结束）查询活动，若后面的参数为空，则查询所有的活动；
      * @param status
      * @return
      */
@@ -119,7 +119,7 @@ public class ActivityController {
     }
 
     /**
-     * 查询用户是否参加了社团
+     * 查询用户是否参加了活动
      * @param openId 用户的openId
      * @param aid 社团id
      * @return true:参加了社团，false:没有参加社团
@@ -141,4 +141,9 @@ public class ActivityController {
         }
         return  JsonResult.success(isParted);
     }
+
+
+    /**
+     * 流程：
+     */
 }

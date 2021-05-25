@@ -9,4 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @Descriptions
  */
 public interface ICommunityService extends IService<Community> {
+
+
+    int isPartedCommunity(Long id, Long aid);
 }

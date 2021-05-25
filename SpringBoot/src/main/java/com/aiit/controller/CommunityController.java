@@ -1,5 +1,7 @@
 package com.aiit.controller;
 
+import com.aiit.pojo.User;
+import com.aiit.service.IUserService;
 import com.aiit.utils.returns.CommonEnum;
 import com.aiit.utils.returns.JsonResult;
 import com.aiit.pojo.Community;
@@ -22,6 +24,13 @@ import java.util.List;
 public class CommunityController {
 
     ICommunityService communityService;
+
+    IUserService userService;
+
+    @Autowired
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setCommunityService(ICommunityService communityService) {
@@ -85,6 +94,24 @@ public class CommunityController {
     public JsonResult getCommunityTop(@PathVariable("num") Integer num) {
         List<Community> communities = communityService.list(new QueryWrapper<Community>().orderByDesc("score").last("limit "+num));
         return JsonResult.success(communities);
+    }
+
+    @GetMapping("/isparted")
+    public JsonResult isPartedActivity(@RequestParam("openId")String openId,@RequestParam("cid") Long cid){
+
+        if(openId.isEmpty()|| cid == null){
+            return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
+        }
+        User user = userService.getOne(new QueryWrapper<User>().eq("open_id", openId));
+        if(user==null){
+            return JsonResult.error("请求参数错误");
+        }
+        int partedActivity = communityService.isPartedCommunity(user.getId(), cid);
+        boolean isParted = false;
+        if(partedActivity > 0 ){
+            isParted =true;
+        }
+        return  JsonResult.success(isParted);
     }
 
 

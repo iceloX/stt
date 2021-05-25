@@ -1,6 +1,8 @@
 package com.aiit.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,9 @@ public class Community {
     private String head; // 负责人的名字
     private Integer status; // 状态
     private Float score; // 分数
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    private Date setDate; // 成立日期
+    private String tags;// 社团的标签
     @TableField(exist = false)
     private List<Activity> activities; // 社团下的活动
     @TableField(exist = false)

@@ -116,7 +116,7 @@ public class SignController {
                                @RequestParam("openId") String openId,
                                @RequestParam("jd") BigDecimal jd,
                                @RequestParam("wd") BigDecimal wd) {
-        if (id == null || openId == null || jd == null || wd == null) {
+        if (id == null || openId.isEmpty() || jd == null || wd == null) {
             // 当参数存在空值的时候
             return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
         }
