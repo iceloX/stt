@@ -142,7 +142,6 @@ public class ActivityController {
      */
     @GetMapping("/isparted")
     public JsonResult isPartedActivity(@RequestParam("openId") String openId, @RequestParam("aid") Long aid) {
-
         if (openId.isEmpty() || aid == null) {
             return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
         }
@@ -159,18 +158,5 @@ public class ActivityController {
     }
 
 
-    /**
-     * 业务流程：从数据库中查询所有的活动，判断活动的状态，-1，0，1 ，判断活动的状态然后和当前时间进行对比，
-     * 如果当前时间在活动开始之前，设置活动的状态为-1（未开始）
-     * 如果当前时间在活动开始之后、活动结束之前，设置活动的状态为0（进行中）
-     * 如果当前时间在活动结束之后，设置活动的状态为1（已结束）
-     */
 
-    @GetMapping("start")
-    public JsonResult setStatus() {
-        // LocalDateTime localDateTime = LocalDateTime.now();
-        List<Activity> activities = activityService.list();
-
-        return null;
-    }
 }
