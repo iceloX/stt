@@ -10,6 +10,10 @@
         WHERE st.id = #{signId}
     </select>
     <select id="isPartedActivity" resultType="java.lang.Integer">
-        select * FROM user_act WHERE user_id = #{userId} AND act_id = #{aid}
+        select *
+        FROM user_act
+        WHERE user_id = #{userId}
+          AND act_id = #{aid}
     </select>
+
 </mapper>

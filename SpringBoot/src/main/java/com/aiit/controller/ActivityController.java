@@ -1,8 +1,12 @@
 package com.aiit.controller;
 
+import com.aiit.config.quartz.DynamicTaskConfig;
 import com.aiit.pojo.Community;
 import com.aiit.pojo.User;
 import com.aiit.service.IUserService;
+import com.aiit.utils.date.DateUtil;
+import com.aiit.utils.qrcode.QRCodeUtil;
+import com.aiit.utils.quartz.CronDateUtils;
 import com.aiit.utils.returns.CommonEnum;
 import com.aiit.utils.returns.JsonResult;
 import com.aiit.pojo.Activity;
@@ -14,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +36,13 @@ public class ActivityController {
 
     IUserService userService;
 
+    DynamicTaskConfig dynamicTaskConfig;
+
+    @Autowired
+    public void setDynamicTaskConfig(DynamicTaskConfig dynamicTaskConfig) {
+        this.dynamicTaskConfig = dynamicTaskConfig;
+    }
+
     @Autowired
     public void setUserService(IUserService userService) {
         this.userService = userService;
@@ -42,6 +55,7 @@ public class ActivityController {
 
     /**
      * 根据活动的状态 （活动的状态：-1 未开始，0 进行中，1 已结束）查询活动，若后面的参数为空，则查询所有的活动；
+     *
      * @param status
      * @return
      */
@@ -109,41 +123,54 @@ public class ActivityController {
 
     /**
      * 查询活动排名前几名
+     *
      * @param num 前几
      * @return
      */
     @GetMapping("top/{num}")
-    public JsonResult getActiActivityTop(@PathVariable("num") Integer num){
-        List<Activity> communities = activityService.list(new QueryWrapper<Activity>().orderByDesc("score").last("limit "+num));
+    public JsonResult getActiActivityTop(@PathVariable("num") Integer num) {
+        List<Activity> communities = activityService.list(new QueryWrapper<Activity>().orderByDesc("score").last("limit " + num));
         return JsonResult.success(communities);
     }
 
     /**
      * 查询用户是否参加了活动
+     *
      * @param openId 用户的openId
-     * @param aid 社团id
+     * @param aid    社团id
      * @return true:参加了社团，false:没有参加社团
      */
     @GetMapping("/isparted")
-    public JsonResult isPartedActivity(@RequestParam("openId")String openId,@RequestParam("aid") Long aid){
+    public JsonResult isPartedActivity(@RequestParam("openId") String openId, @RequestParam("aid") Long aid) {
 
-        if(openId.isEmpty()|| aid == null){
+        if (openId.isEmpty() || aid == null) {
             return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
         }
         User user = userService.getOne(new QueryWrapper<User>().eq("open_id", openId));
-        if(user==null){
+        if (user == null) {
             return JsonResult.error("请求参数错误");
         }
         int partedActivity = activityService.isPartedActivity(user.getId(), aid);
         boolean isParted = false;
-        if(partedActivity > 0 ){
-            isParted =true;
+        if (partedActivity > 0) {
+            isParted = true;
         }
-        return  JsonResult.success(isParted);
+        return JsonResult.success(isParted);
     }
 
 
     /**
-     * 流程：
+     * 业务流程：从数据库中查询所有的活动，判断活动的状态，-1，0，1 ，判断活动的状态然后和当前时间进行对比，
+     * 如果当前时间在活动开始之前，设置活动的状态为-1（未开始）
+     * 如果当前时间在活动开始之后、活动结束之前，设置活动的状态为0（进行中）
+     * 如果当前时间在活动结束之后，设置活动的状态为1（已结束）
      */
+
+    @GetMapping("start")
+    public JsonResult setStatus() {
+        // LocalDateTime localDateTime = LocalDateTime.now();
+        List<Activity> activities = activityService.list();
+
+        return null;
+    }
 }
