@@ -33,6 +33,7 @@ public class UserController {
 
     /**
      * 小程序用户登录实现
+     *
      * @param code
      * @param avatar
      * @param nickname
@@ -74,6 +75,7 @@ public class UserController {
 
     /**
      * 根据社团id查询所有用户
+     *
      * @param id 社团id
      * @return
      */
@@ -89,11 +91,12 @@ public class UserController {
 
     /**
      * 根据用户的openId 查询用户信息
+     *
      * @param openId
      * @return
      */
     @GetMapping("info")
-    private JsonResult getUserByOpenId(@RequestParam("openId") String openId) {
+    private JsonResult getUserByOpenId(@RequestParam("openId") String openId)   {
         System.out.println(openId);
         if (openId.isEmpty()) {
             return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
@@ -109,21 +112,60 @@ public class UserController {
 
     /**
      * 获取用户参加的全部社团
+     *
      * @param openId 用户的openId
      * @return
      */
     @GetMapping("all/community")
-    public JsonResult getUserAllCommunity(@RequestParam("openId")String openId){
-        if(openId.isEmpty()) {
+    public JsonResult getUserAllCommunity(@RequestParam("openId") String openId) {
+        if (openId.isEmpty()) {
             return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
 
         }
         User user = userService.getOne(new QueryWrapper<User>().eq("open_id", openId));
-        if(user== null){
+        if (user == null) {
             return JsonResult.error("用户不存在");
         }
         List<Community> userAllCommunity = userService.getUserAllCommunity(user.getId());
         return JsonResult.success(userAllCommunity);
+    }
+
+    @GetMapping("update")
+    public JsonResult updateUserInfo(@RequestParam("openId") String openId,
+                                     @RequestParam("key") String key,
+                                     @RequestParam("value") String value) {
+
+        if (key.isEmpty() || value.isEmpty() || openId.isEmpty()) {
+            return JsonResult.error(CommonEnum.PARAME_NOT_EMTYPE.getResultCode(), CommonEnum.PARAME_NOT_EMTYPE.getResultMessage());
+        }
+        User user = userService.getOne(new QueryWrapper<User>().eq("open_id", openId));
+
+        if (user == null) {
+            return JsonResult.error("用户不存在错误！");
+        }
+        if ("school".equalsIgnoreCase(key)) {
+            user.setSchool(value);
+            boolean result = userService.updateById(user);
+            return JsonResult.success("修改结果" + result);
+        } else if ("cls".equalsIgnoreCase(key)) {
+            user.setCls(value);
+            boolean result = userService.updateById(user);
+            return JsonResult.success("修改结果" + result);
+        }else if("snumber".equalsIgnoreCase(key)){
+            user.setSnumber(value);
+            boolean result = userService.updateById(user);
+            return JsonResult.success("修改结果" + result);
+        }else if("name".equalsIgnoreCase(key)){
+            user.setName(value);
+            boolean result = userService.updateById(user);
+            return JsonResult.success("修改结果" + result);
+        }else if("phone".equalsIgnoreCase(key)){
+            user.setPhone(value);
+            boolean result = userService.updateById(user);
+            return JsonResult.success("修改结果" + result);
+        }else{
+            return JsonResult.error("未知错误！");
+        }
     }
 
 }

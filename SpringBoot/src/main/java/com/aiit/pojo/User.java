@@ -33,6 +33,7 @@ public class User {
     private String avatar; // 头像
     private Integer status; // 状态
     private String name; // 用户真实姓名
+    private String school;// 用户学校
 
 
     @TableField(fill = FieldFill.INSERT)
